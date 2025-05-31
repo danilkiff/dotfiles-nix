@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  sshPubKey = builtins.readFile ../ssh/id_ed25519.pub;
+  sshPubKey = builtins.readFile ../../ssh/id_ed25519.pub;
 in
 {
   users.users.pikachu = {

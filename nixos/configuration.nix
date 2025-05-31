@@ -5,12 +5,12 @@
     ./hardware-configuration.nix
     
     ./modules/desktop-gnome.nix
-    ./modules/dev-ohmyzsh.nix
-    ./modules/media.nix
-    ./modules/ml.nix
-    ./modules/nvidia.nix
+    # ./modules/dev-ohmyzsh.nix
+    # ./modules/media.nix
+    # ./modules/ml.nix
+    # ./modules/nvidia.nix
     
-    ./users/pikachu.nix
+    # ./users/pikachu.nix
   ];
 
   networking.hostName = "mynixbox";
@@ -18,10 +18,14 @@
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
     authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  system.stateVersion = "25.05";
 }
