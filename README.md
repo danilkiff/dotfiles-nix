@@ -1,6 +1,11 @@
 # Dotfiles & NixOS setup
 
-> Personal NixOS setup with modular configuration for development, multimedia, and virtualization.
+Personal NixOS setup with modular configuration for development, multimedia, and virtualization.
+
+> [!CAUTION]
+> This repo is public and intended for your own learning and research.  
+> Always apply all necessary changes for your own configuration —  
+> otherwise, you risk making your system unbootable or losing data.
 
 ## Usage
 
@@ -15,8 +20,6 @@
 - `.config/` — user dotfiles
 - `ssh/` — SSH public key and config (private key is **not** tracked)
 
-> [!CAUTION]
-> This repo is public and intended for your own learning and research.  
-> Always apply all necessary changes for your own configuration —  
-> otherwise, you risk making your system unbootable or losing data.
+## License
 
+MIT. See [LICENSE](LICENSE) for details.
