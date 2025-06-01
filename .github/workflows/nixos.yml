@@ -1,50 +1,31 @@
-name: NixOS Configuration
+name: NixOS Validation
 
 on:
   push:
     branches: [ 'main' ]
     paths:
-      - 'modules/**'
-      - 'nixos/**'
-      - 'users/**'
+      - '**.nix'
+      - 'Dockerfile'
       - '.github/workflows/**'
+  
   pull_request:
     branches: [ 'main' ]
     paths:
-      - 'modules/**'
-      - 'nixos/**'
-      - 'users/**'
+      - '**.nix'
+      - 'Dockerfile'
       - '.github/workflows/**'
 
 jobs:
   validate:
-    name: Validate *.nix files
+    name: Validate NixOS config via Docker
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v26
+      - name: Build Docker image
+        run: docker build -t nixos-validate .
 
-      - name: Set NIX_PATH using fetchTarball
-        run: |
-          echo "NIX_PATH=nixpkgs=$(nix eval --impure --expr 'builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.05.tar.gz"' --raw)" >> $GITHUB_ENV
-
-      - name: Create dummy hardware-configuration.nix
-        run: |
-          cat > $GITHUB_WORKSPACE/nixos/hardware-configuration.nix <<EOF
-          { config, lib, pkgs, ... }:
-          {
-            fileSystems."/" = {
-              device = "/dev/disk/by-label/nixos";
-              fsType = "ext4";
-            };
-            boot.loader.grub.devices = [ "/dev/sda" ];
-          }
-          EOF
-
-      - name: Evaluate system configuration
-        run: |
-          nix-instantiate '<nixpkgs/nixos>' -A system -I nixos-config=$GITHUB_WORKSPACE/nixos/configuration.nix
+      - name: Run validation in container
+        run: docker run --rm nixos-validate

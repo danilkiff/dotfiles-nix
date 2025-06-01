@@ -14,11 +14,22 @@ Personal NixOS setup with modular configuration for development, multimedia, and
 3. Run `sudo nixos-rebuild switch --flake .#` or use the classic switch.
 4. **Never commit your private SSH key!**
 
+## Local Validation
+
+Requires Docker or Podman.
+
+```bash
+docker build -t nixos-validate .
+docker run --rm -it nixos-validate
+```
+
 ## Structure
 
 - `nixos/` — system configs
-- `.config/` — user dotfiles
 - `ssh/` — SSH public key and config (private key is **not** tracked)
+- `Dockerfile` — for validation and CI
+- `.editorconfig` — coding style, 2-space everywhere
+- `.gitignore`, `.dockerignore` — safety
 
 ## License
 

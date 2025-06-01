@@ -1,0 +1,7 @@
+ssh/id_ed25519
+ssh/known_hosts
+
+nixos/hardware-configuration.nix
+
+README.md
+LICENSE

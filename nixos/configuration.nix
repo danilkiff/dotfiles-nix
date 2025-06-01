@@ -2,18 +2,17 @@
 
 {
   imports = [
+    ./users/pikachu.nix
+     <home-manager/nixos>
+
     ./hardware-configuration.nix
-    
-    ./modules/desktop-gnome.nix
-    # ./modules/dev-ohmyzsh.nix
-    # ./modules/media.nix
-    # ./modules/ml.nix
-    # ./modules/nvidia.nix
-    
-    # ./users/pikachu.nix
+    ./modules/nvidia.nix
+    ./modules/virtualization.nix
   ];
 
-  networking.hostName = "mynixbox";
+  home-manager.users.pikachu = import ./users/pikachu-home.nix;
+
+  networking.hostName = "oniguruma";
   networking.firewall.enable = true;
 
   services.openssh = {
@@ -26,6 +25,8 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  programs.zsh.enable = true;
 
   system.stateVersion = "25.05";
 }
