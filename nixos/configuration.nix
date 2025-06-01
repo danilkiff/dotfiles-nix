@@ -10,7 +10,7 @@
     ./modules/virtualization.nix
   ];
 
-  home-manager.users.pikachu = import ./users/pikachu-home.nix;
+  home-manager.users.pikachu = import ./users/pikachu/home.nix;
 
   networking.hostName = "oniguruma";
   networking.firewall.enable = true;
