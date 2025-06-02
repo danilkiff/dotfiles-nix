@@ -3,6 +3,8 @@
   home = {
     file.".ssh/config".source = ../../../ssh/config;
     packages = with pkgs; [
+      httpie
+      jq
       git
       gnupg
       docker
