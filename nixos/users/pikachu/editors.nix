@@ -1,12 +1,20 @@
 { config, pkgs, ... }:
+
+let
+  tex = pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-full;
+  };
+in
 {
   nixpkgs.config.allowUnfree = true;
-  
+
   home.packages = with pkgs; [
+    tex
+    texstudio
     neovim
     obsidian
   ];
-  
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -16,6 +24,7 @@
       ms-toolsai.jupyter
       ms-azuretools.vscode-docker
       jdinhlife.gruvbox
+      james-yu.latex-workshop
     ];
   };
 }
