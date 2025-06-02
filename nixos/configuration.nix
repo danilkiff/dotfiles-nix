@@ -10,6 +10,7 @@
     ./modules/virtualization.nix
   ];
 
+  home-manager.backupFileExtension = "backup";
   home-manager.users.pikachu = import ./users/pikachu/home.nix;
 
   boot.loader = {
@@ -54,6 +55,10 @@
     enable = true;
     desktopManager = {
       xfce.enable = true;
+    };
+    xkb = {
+      layout = "us,ru";
+      options = "grp:win_space_toggle";
     };
   };
 
