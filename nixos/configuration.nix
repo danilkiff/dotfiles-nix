@@ -67,6 +67,7 @@
   environment.systemPackages = with pkgs; [
     networkmanager
     networkmanager-openvpn
+    pinentry-gtk2
   ];
 
   # Enable sound with pipewire.
@@ -84,6 +85,11 @@
   security.sudo.wheelNeedsPassword = false;
 
   programs.zsh.enable = true;
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gtk2;
+  };
 
   system.stateVersion = "25.05";
 }

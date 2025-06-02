@@ -17,6 +17,11 @@
     enable = true;
     userName = "Oleg Y. Danilkiff";
     userEmail = "13948753+danilkiff@users.noreply.github.com";
+
+    signing = {
+      key = "386E2F77CD7D10E0";
+      signByDefault = true;
+    };
   };
 
   programs.gpg.enable = true;
