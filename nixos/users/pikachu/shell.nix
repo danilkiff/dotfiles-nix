@@ -1,13 +1,15 @@
 { pkgs, ... }:
 {
-  programs.zsh = {
-    enable = true;
-    oh-my-zsh = {
+  programs = {
+    zsh = {
       enable = true;
-      plugins = [ "git" "python" "docker" ];
-      theme = "gentoo";
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "python" "docker" ];
+        theme = "gentoo";
+      };
     };
-  };
 
-  programs.tmux.enable = true;
+    tmux.enable = true;
+  };
 }

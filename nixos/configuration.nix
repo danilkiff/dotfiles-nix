@@ -10,14 +10,37 @@
     ./modules/virtualization.nix
   ];
 
-  home-manager.backupFileExtension = "backup";
-  home-manager.users.pikachu = import ./users/pikachu/home.nix;
-
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    networkmanager
+    networkmanager-openvpn
+    pinentry-gtk2
+  ];
+
+  security = {
+    rtkit.enable = true;
+    sudo.wheelNeedsPassword = false;
+  };
+
+  programs = {
+    zsh.enable = true;
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gtk2;
+    };
+  };
+  
+  home-manager = {
+    backupFileExtension = "backup";
+    users = {
+      pikachu = import ./users/pikachu/home.nix;
+    };
+  };
+  
   networking = {
     hostName = "oniguruma";
     firewall.enable = true;
@@ -42,53 +65,36 @@
     };
   };
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
-  };
-
-  services.xserver = {
-    enable = true;
-    desktopManager = {
-      xfce.enable = true;
-    };
-    xkb = {
-      layout = "us,ru";
-      options = "grp:win_space_toggle";
-    };
-  };
-
-  services.displayManager.defaultSession = "xfce";
-
-  environment.systemPackages = with pkgs; [
-    networkmanager
-    networkmanager-openvpn
-    pinentry-gtk2
-  ];
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa = {
+  services = {
+    openssh = {
       enable = true;
-      support32Bit = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+      authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
     };
-    pulse.enable = true;
-  };
-
-  security.sudo.wheelNeedsPassword = false;
-
-  programs.zsh.enable = true;
-
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    xserver = {
+      enable = true;
+      desktopManager = {
+        xfce.enable = true;
+      };
+      xkb = {
+        layout = "us,ru";
+        options = "grp:win_space_toggle";
+      };
+    };
+    displayManager.defaultSession = "xfce";
+    # Enable sound with pipewire.
+    pulseaudio.enable = false;
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+    };
   };
 
   system.stateVersion = "25.05";
