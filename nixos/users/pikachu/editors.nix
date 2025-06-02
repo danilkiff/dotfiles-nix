@@ -12,6 +12,11 @@ in
     texstudio
     neovim
     obsidian
+    libreoffice
+    onlyoffice-bin
+    hunspell
+    hunspellDicts.ru_RU
+    hunspellDicts.en_US
   ];
 
   programs.vscode = {
