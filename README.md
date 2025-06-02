@@ -11,17 +11,13 @@ Personal NixOS setup with modular configuration for development, multimedia, and
 
 1. Clone the repo after NixOS installation.
 2. Copy your `hardware-configuration.nix` into the `nixos/` directory.
-3. Run `sudo nixos-rebuild switch --flake .#` or use the classic switch.
+3. Run `nixos-rebuild switch -I nixos-config=nixos/configuration.nix`.
 4. **Never commit your private SSH key!**
 
 ## Local Validation
 
 Requires Docker or Podman.
-
-```bash
-docker build -t nixos-validate .
-docker run --rm -it nixos-validate
-```
+Launch `./run-tests`.
 
 ## Structure
 

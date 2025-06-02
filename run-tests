@@ -1,4 +1,4 @@
-#!/bin/bash -ef
+#!bash -ef
 
 docker build -t nixos-validate .
 docker run --rm -it nixos-validate

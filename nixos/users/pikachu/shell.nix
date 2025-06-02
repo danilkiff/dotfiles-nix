@@ -5,7 +5,7 @@
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" "python" "docker" ];
-      theme = "agnoster";
+      theme = "gentoo";
     };
   };
 
