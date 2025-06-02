@@ -10,5 +10,6 @@
     chromium
     pulsemixer
     virt-manager
+    redshift
   ];
 }
