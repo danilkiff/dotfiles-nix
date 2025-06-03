@@ -16,6 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    home-manager
     networkmanager
     networkmanager-openvpn
     pinentry-gtk2
