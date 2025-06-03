@@ -24,6 +24,9 @@ in
       gcc
       python311 
       python311Packages.pip
+      jetbrains.pycharm-professional
+      jetbrains.idea-ultimate
+      jetbrains.goland
     ];
   };
   programs = {
