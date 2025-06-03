@@ -14,16 +14,16 @@ help:
 
 # Docker: validate NixOS config inside container
 test:
-	docker build -t nixos-validate .
-	docker run --rm -it nixos-validate
+	@docker build -t nixos-validate .
+	@docker run --rm -it nixos-validate
 
 # Dry-run NixOS build to catch all errors before deploy
 check:
-	sudo nixos-rebuild dry-build -I nixos-config=nixos/configuration.nix
+	@sudo nixos-rebuild dry-build -I nixos-config=nixos/configuration.nix
 
 # Apply NixOS config on local system
 install: check
-	sudo nixos-rebuild switch -I nixos-config=nixos/configuration.nix
+	@sudo nixos-rebuild switch -I nixos-config=nixos/configuration.nix
 
 # Garbage-collect previous generations
 gc:
@@ -32,6 +32,6 @@ gc:
 
 # Apply NixOS Home Manager config on local system
 home: check
-	home-manager switch -f nixos/users/pikachu/home.nix
+	@home-manager switch -f nixos/users/pikachu/home.nix
 
 
