@@ -10,7 +10,6 @@ in
   home.packages = with pkgs; [
     tex
     texstudio
-    neovim
     obsidian
     libreoffice
     onlyoffice-bin
@@ -30,5 +29,11 @@ in
       jdinhlife.gruvbox
       james-yu.latex-workshop
     ];
+  };
+
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    viAlias = true;
   };
 }
