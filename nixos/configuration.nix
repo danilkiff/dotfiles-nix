@@ -19,6 +19,18 @@
     networkmanager
     networkmanager-openvpn
     pinentry-gtk2
+
+    xfce.xfce4-panel-profiles
+    xfce.xfce4-whiskermenu-plugin
+    xfce.xfce4-xkb-plugin
+    xfce.xfce4-icon-theme
+
+    gruvbox-material-gtk-theme
+    gruvbox-gtk-theme
+
+    gruvbox-plus-icons
+    gruvbox-dark-icons-gtk
+
   ];
 
   security = {

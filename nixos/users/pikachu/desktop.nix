@@ -11,5 +11,6 @@
     pulsemixer
     virt-manager
     redshift
+    flameshot
   ];
 }
