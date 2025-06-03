@@ -6,11 +6,15 @@
       oh-my-zsh = {
         enable = true;
         plugins = [ 
-          "git" "docker" "docker-compose"
-          "python" "pip" "virtualenv" "conda" "conda-env"
+          "git" 
+          "docker" 
+          "docker-compose"
+          "python" 
+          "pip" 
+          "virtualenv"
           "tmux"
         ];
-        theme = "essembeh";
+        theme = "robbyrussell";
       };
     };
 
