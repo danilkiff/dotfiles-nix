@@ -8,3 +8,5 @@ Host *.cnbs.lan
     User pikachu
     IdentityFile ~/.ssh/id_ed25519
 
+Host *
+    VisualHostKey yes
