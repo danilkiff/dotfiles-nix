@@ -1,4 +1,4 @@
-.PHONY: help test install home check
+.PHONY: help test install home check gc
 
 # Help output
 help:
@@ -9,6 +9,7 @@ help:
 	@echo "  install   - Run nixos-rebuild with current config"
 	@echo "  home      - Run home-manager switch with current config"
 	@echo "  check     - Dry-run NixOS build to catch all errors before deploy"
+	@echo "  gc        - Garbage-collect previous generations"
 	@echo "  help      - Show this help message"
 
 # Docker: validate NixOS config inside container
@@ -23,6 +24,11 @@ check:
 # Apply NixOS config on local system
 install: check
 	sudo nixos-rebuild switch -I nixos-config=nixos/configuration.nix
+
+# Garbage-collect previous generations
+gc:
+	@sudo nix-collect-garbage -d
+	@nixos-rebuild list-generations
 
 # Apply NixOS Home Manager config on local system
 home: check
