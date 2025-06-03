@@ -15,6 +15,7 @@
       curl
       wget
       mc
+      gnumake
     ];
   };
   programs = {

@@ -14,18 +14,10 @@ Personal NixOS setup with modular configuration for development, multimedia, and
 3. Run `nixos-rebuild switch -I nixos-config=nixos/configuration.nix`.
 4. **Never commit your private SSH key!**
 
-## Local Validation
 
-Requires Docker or Podman.
-Launch `./run-tests`.
+## Makefile Usage
 
-## Structure
-
-- `nixos/` — system configs
-- `ssh/` — SSH public key and config (private key is **not** tracked)
-- `Dockerfile` — for validation and CI
-- `.editorconfig` — coding style, 2-space everywhere
-- `.gitignore`, `.dockerignore` — safety
+You can manage most common actions via the `Makefile` in the project root. Use `make help` for available targets.
 
 ## License
 
