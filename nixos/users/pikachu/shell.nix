@@ -5,12 +5,12 @@
       enable = true;
       oh-my-zsh = {
         enable = true;
-        plugins = [ 
-          "git" 
-          "docker" 
+        plugins = [
+          "git"
+          "docker"
           "docker-compose"
-          "python" 
-          "pip" 
+          "python"
+          "pip"
           "virtualenv"
           "tmux"
         ];
@@ -18,6 +18,12 @@
       };
     };
 
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+      extraConfig = ''
+        set -g mouse on
+        set -g default-terminal "xterm-256color"
+      '';
+    };
   };
 }
