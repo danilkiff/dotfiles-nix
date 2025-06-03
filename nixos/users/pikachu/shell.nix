@@ -7,10 +7,10 @@
         enable = true;
         plugins = [ 
           "git" "docker" "docker-compose"
-          "python" "pip" "virtualenv"
+          "python" "pip" "virtualenv" "conda" "conda-env"
           "tmux"
         ];
-        theme = "gentoo";
+        theme = "essembeh";
       };
     };
 

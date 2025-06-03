@@ -10,7 +10,6 @@
     ./desktop.nix
     ./devtools.nix
     ./editors.nix
-    ./ml.nix
     ./shell.nix  
   ];
 }

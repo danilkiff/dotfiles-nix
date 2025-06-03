@@ -15,7 +15,8 @@
       curl
       wget
       mc
-      gnumake
+      gnumake gcc
+      python311 python311Packages.pip
     ];
   };
   programs = {
