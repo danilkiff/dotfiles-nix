@@ -1,4 +1,9 @@
 { pkgs, ... }:
+let
+  userName  = "Oleg Y. Danilkiff";
+  userEmail = "13948753+danilkiff@users.noreply.github.com";
+  signKey   = "386E2F77CD7D10E0";
+in
 {
   home = {
     file.".ssh/config".source = ../../../ssh/config;
@@ -24,10 +29,10 @@
   programs = {
     git = {
       enable = true;
-      userName = "Oleg Y. Danilkiff";
-      userEmail = "13948753+danilkiff@users.noreply.github.com";
+      userName = userName;
+      userEmail = userEmail;
       signing = {
-        key = "386E2F77CD7D10E0";
+        key = signKey;
         signByDefault = true;
       };
     };
