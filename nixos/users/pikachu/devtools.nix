@@ -27,6 +27,12 @@ in
       jetbrains.pycharm-professional
       jetbrains.idea-ultimate
       jetbrains.goland
+      iperf3
+      nmap
+      lm_sensors
+      man-pages
+      man-pages-posix
+      busybox
     ];
   };
   programs = {

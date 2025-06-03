@@ -12,5 +12,7 @@
     virt-manager
     redshift
     flameshot
+    evince
+    papers
   ];
 }
