@@ -32,7 +32,8 @@ in
       lm_sensors
       man-pages
       man-pages-posix
-      busybox
+      pciutils
+      usbutils
     ];
   };
   programs = {

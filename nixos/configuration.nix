@@ -42,9 +42,13 @@
 
   programs = {
     zsh.enable = true;
+    
+    ssh.startAgent = true;
+
     gnupg.agent = {
       enable = true;
       pinentryPackage = pkgs.pinentry-gtk2;
+      enableSSHSupport = true;
     };
 
     thunar = {
