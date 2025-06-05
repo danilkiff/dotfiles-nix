@@ -14,5 +14,11 @@
     flameshot
     evince
     papers
+
+    p7zip
+    unzip
+    unrar
+    zip
+    file-roller
   ];
 }

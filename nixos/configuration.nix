@@ -25,6 +25,7 @@
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-xkb-plugin
     xfce.xfce4-icon-theme
+    xfce.ristretto
 
     gruvbox-material-gtk-theme
     gruvbox-gtk-theme
@@ -44,6 +45,15 @@
     gnupg.agent = {
       enable = true;
       pinentryPackage = pkgs.pinentry-gtk2;
+    };
+
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [ 
+        thunar-archive-plugin
+        thunar-volman
+        thunar-vcs-plugin
+      ];
     };
   };
   
