@@ -20,5 +20,15 @@
     unrar
     zip
     file-roller
+
+    transmission_4-gtk
+    discord
+    telegram-desktop
+    thunderbird-bin
+    yandex-disk
+
+    keepassxc
+    seahorse
+    gpa
   ];
 }

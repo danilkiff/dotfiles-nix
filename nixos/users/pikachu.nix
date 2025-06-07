@@ -8,7 +8,7 @@ in
     home = "/home/pikachu";
     description = "Pikachu Overflow";
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "transmission" ];
     openssh.authorizedKeys.keys = [ sshPubKey ];
   };
 }
