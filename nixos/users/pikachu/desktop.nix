@@ -30,5 +30,8 @@
     keepassxc
     seahorse
     gpa
+
+    gparted
+    libxfs
   ];
 }
