@@ -16,6 +16,11 @@
         ];
         theme = "robbyrussell";
       };
+      initContent = ''
+        if ! ssh-add -l &>/dev/null; then
+          ssh-add 2> /dev/null
+        fi
+      '';
     };
 
     tmux = {
