@@ -1,5 +1,10 @@
 { pkgs, ... }:
 {
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim"; # for TUI/GUI
+  };
+  
   programs = {
     zsh = {
       enable = true;

@@ -35,5 +35,11 @@ in
     enable = true;
     vimAlias = true;
     viAlias = true;
+
+    plugins = with pkgs.vimPlugins; [
+      editorconfig-vim
+    ];
+
+    extraConfig = builtins.readFile ./nvim-config.vim;
   };
 }
