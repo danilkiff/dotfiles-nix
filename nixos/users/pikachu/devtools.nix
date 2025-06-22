@@ -34,6 +34,7 @@ in
       man-pages-posix
       pciutils
       usbutils
+      android-tools
     ];
   };
   programs = {
