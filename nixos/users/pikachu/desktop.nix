@@ -33,5 +33,7 @@
 
     gparted
     libxfs
+
+    yt-dlp
   ];
 }
