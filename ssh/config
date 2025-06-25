@@ -4,6 +4,13 @@ Host github.com
     IdentityFile ~/.ssh/id_rsa
     IdentitiesOnly yes
 
+Host gitea.z.pq3.ru
+    HostName gitea.z.pq3.ru
+    Port 222
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes    
+
 Host *.cnbs.lan
     User pikachu
     IdentityFile ~/.ssh/id_ed25519
