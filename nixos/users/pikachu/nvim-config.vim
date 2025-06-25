@@ -1,6 +1,6 @@
 set background=dark
 set number
-colorscheme habamax
+colorscheme retrobox
 
 set showbreak=↪\ 
 set list listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
