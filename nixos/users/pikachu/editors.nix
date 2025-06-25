@@ -20,7 +20,7 @@ in
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
       ms-python.python
