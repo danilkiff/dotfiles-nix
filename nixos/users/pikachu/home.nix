@@ -10,6 +10,6 @@
     ./desktop.nix
     ./devtools.nix
     ./editors.nix
-    ./shell.nix  
+    ./shell.nix
   ];
 }

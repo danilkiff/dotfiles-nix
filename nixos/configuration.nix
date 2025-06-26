@@ -42,7 +42,7 @@
 
   programs = {
     zsh.enable = true;
-    
+
     ssh.startAgent = true;
 
     gnupg.agent = {
@@ -52,21 +52,21 @@
 
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [ 
+      plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-volman
         thunar-vcs-plugin
       ];
     };
   };
-  
+
   home-manager = {
     backupFileExtension = "backup";
     users = {
       pikachu = import ./users/pikachu/home.nix;
     };
   };
-  
+
   networking = {
     hostName = "oniguruma";
     firewall.enable = true;

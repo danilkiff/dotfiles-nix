@@ -5,8 +5,8 @@
     docker.enable = true;
     podman.enable = false;
   };
-  
-  environment.systemPackages = with pkgs; [ 
+
+  environment.systemPackages = with pkgs; [
     virt-manager
   ];
 }

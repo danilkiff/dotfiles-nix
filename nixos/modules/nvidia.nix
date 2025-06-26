@@ -16,7 +16,7 @@
       finegrained = false;
     };
 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     open = true;
 
     nvidiaSettings = true;

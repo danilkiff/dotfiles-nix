@@ -22,7 +22,7 @@ in
       mc
       gnumake
       gcc
-      python311 
+      python311
       python311Packages.pip
       jetbrains.pycharm-professional
       jetbrains.idea-ultimate
