@@ -91,7 +91,20 @@
     };
   };
 
+  # https://github.com/ollama/ollama/issues/5905
+  # Forcing Ollama to bind to 0.0.0.0 instead of localhost
+  systemd.services = {
+    ollama.serviceConfig = {
+      Environment = [ "OLLAMA_HOST=0.0.0.0:11434" ];
+    };
+  };
+
   services = {
+    ollama = {
+      enable = true;
+      acceleration = "cuda";
+      openFirewall = true;
+    };
     openssh = {
       enable = true;
       settings = {
