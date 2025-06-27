@@ -102,6 +102,7 @@
   };
 
   services = {
+    gpm.enable = true;
     ollama = {
       enable = true;
       acceleration = "cuda";
@@ -137,6 +138,13 @@
       };
       pulse.enable = true;
     };
+  };
+
+  console =  {
+    earlySetup = true;
+    font = "ter-v16n";
+    packages = [ pkgs.terminus_font ];
+    useXkbConfig = true;
   };
 
   system.stateVersion = "25.05";
