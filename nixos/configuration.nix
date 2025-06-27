@@ -124,7 +124,7 @@
       };
       xkb = {
         layout = "us,ru";
-        options = "grp:win_space_toggle";
+        options = "grp:win_space_toggle,grp:alt_shift_toggle";
       };
     };
     displayManager.defaultSession = "xfce";
