@@ -35,5 +35,6 @@
     libxfs
 
     yt-dlp
+    zotero
   ];
 }
