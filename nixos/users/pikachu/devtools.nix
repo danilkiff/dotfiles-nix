@@ -35,6 +35,7 @@ in
       pciutils
       usbutils
       android-tools
+      tree
     ];
   };
   programs = {
