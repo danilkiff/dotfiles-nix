@@ -24,6 +24,8 @@ in
       gcc
       python311
       python311Packages.pip
+      python311Packages.pipx
+      poetry
       jetbrains.pycharm-professional
       jetbrains.idea-ultimate
       jetbrains.goland
