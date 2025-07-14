@@ -29,6 +29,10 @@ in
       jetbrains.pycharm-professional
       jetbrains.idea-ultimate
       jetbrains.goland
+      jetbrains.rust-rover
+      rustc
+      rustfmt
+      cargo
       iperf3
       nmap
       lm_sensors

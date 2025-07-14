@@ -18,6 +18,7 @@
           "pip"
           "virtualenv"
           "tmux"
+          "rust"
         ];
         theme = "robbyrussell";
       };
