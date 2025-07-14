@@ -11,6 +11,7 @@ in
     tex
     texstudio
     obsidian
+    windsurf
     libreoffice
     onlyoffice-bin
     hunspell
