@@ -15,6 +15,7 @@
           "docker"
           "docker-compose"
           "python"
+          "pyenv"
           "pip"
           "virtualenv"
           "tmux"
