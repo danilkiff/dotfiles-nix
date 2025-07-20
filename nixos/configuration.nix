@@ -16,6 +16,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   environment.systemPackages = with pkgs; [
     home-manager
