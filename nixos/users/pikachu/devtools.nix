@@ -42,6 +42,7 @@ in
       usbutils
       android-tools
       tree
+      dig
     ];
   };
   programs = {
