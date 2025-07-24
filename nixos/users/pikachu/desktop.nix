@@ -9,6 +9,7 @@
     firefox
     chromium
     pulsemixer
+    qmmp
     virt-manager
     redshift
     flameshot
