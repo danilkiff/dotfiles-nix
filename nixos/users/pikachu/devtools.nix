@@ -22,9 +22,9 @@ in
       mc
       gnumake
       gcc
-      python311
-      python311Packages.pip
-      python311Packages.pipx
+      python313
+      python313Packages.pip
+      python313Packages.pipx
       poetry
       jetbrains.pycharm-professional
       jetbrains.idea-ultimate
