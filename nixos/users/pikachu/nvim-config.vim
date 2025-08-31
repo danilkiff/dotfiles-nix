@@ -2,7 +2,7 @@ set background=dark
 set number
 colorscheme retrobox
 
-set showbreak=↪\ 
+set showbreak=↪\
 set list listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 

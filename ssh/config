@@ -9,7 +9,7 @@ Host gitea.z.pq3.ru
     Port 222
     User git
     IdentityFile ~/.ssh/id_ed25519
-    IdentitiesOnly yes    
+    IdentitiesOnly yes
 
 Host *.cnbs.lan
     User pikachu

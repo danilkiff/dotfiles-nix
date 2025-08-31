@@ -3,8 +3,8 @@
 Personal NixOS setup with modular configuration for development, multimedia, and virtualization.
 
 > [!CAUTION]
-> This repo is public and intended for your own learning and research.  
-> Always apply all necessary changes for your own configuration —  
+> This repo is public and intended for your own learning and research.
+> Always apply all necessary changes for your own configuration —
 > otherwise, you risk making your system unbootable or losing data.
 
 ## Usage
