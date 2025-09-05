@@ -54,6 +54,16 @@ in
         key = signKey;
         signByDefault = true;
       };
+      extraConfig = {
+        push.autoSetupRemote = true;
+        pull.ff = "only";
+        init.defaultBranch = "main";
+        log = {
+          decorate = true;
+          abbrevCommit = true;
+        };
+        core.compression = 0;
+      };
     };
     gpg.enable = true;
     ssh.enable = true;
