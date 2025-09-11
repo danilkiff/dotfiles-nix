@@ -1,6 +1,25 @@
 { config, pkgs, ... }:
 
+let
+  sf-pro-fonts = pkgs.callPackage ./pkgs/sf-pro-fonts.nix { };
+in
 {
+  nixpkgs.config.allowUnfree = true;
+
+   fonts = {
+    packages = [
+      sf-pro-fonts
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "SF Pro Text" ];
+        sansSerif = [ "SF Pro Display" ];
+        monospace = [ "SF Mono" ];
+      };
+    };
+  };
+
   imports = [
     ./users/pikachu.nix
      <home-manager/nixos>
