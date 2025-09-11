@@ -22,6 +22,6 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Apple San Francisco Pro (unofficial packaging)";
     license = licenses.unfreeRedistributable;
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }
