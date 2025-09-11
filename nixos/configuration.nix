@@ -106,6 +106,7 @@ in
   };
 
   home-manager = {
+    useGlobalPkgs = true;
     backupFileExtension = "backup";
     users = {
       pikachu = import ./users/pikachu/home.nix;
