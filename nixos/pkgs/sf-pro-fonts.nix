@@ -1,4 +1,8 @@
-{ stdenvNoCC, fetchFromGitHub, lib }:
+{
+  stdenvNoCC,
+  fetchFromGitHub,
+  lib,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "sf-pro-fonts";
@@ -6,8 +10,8 @@ stdenvNoCC.mkDerivation {
 
   src = fetchFromGitHub {
     owner = "sahibjotsaggu";
-    repo  = "San-Francisco-Pro-Fonts";
-    rev   = "8bfea09aa6f1139479f80358b2e1e5c6dc991a58";
+    repo = "San-Francisco-Pro-Fonts";
+    rev = "8bfea09aa6f1139479f80358b2e1e5c6dc991a58";
     sha256 = "0zm9112y5x6z36mhcqlga4lmiqjhp1n7qiszmd3h3wi77z3c81cq"; # nix-prefetch-url --unpack https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts/archive/refs/heads/master.zip
   };
 

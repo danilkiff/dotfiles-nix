@@ -8,7 +8,6 @@
 
   imports = [
     ./users/pikachu.nix
-     <home-manager/nixos>
 
     ./hardware-configuration.nix
 
@@ -26,23 +25,27 @@
     ./modules/desktop/xfce.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+    supportedFilesystems = [ "ntfs" ];
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 14d";
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 14d";
+    };
+    settings = {
+      auto-optimise-store = true;
+      keep-derivations = false;
+      keep-outputs = false;
+    };
   };
-
-  nix.settings.auto-optimise-store = true;
-  nix.settings.keep-derivations = false;
-  nix.settings.keep-outputs = false;
 
   environment.systemPackages = with pkgs; [
     home-manager
@@ -70,7 +73,6 @@
     networkmanager.enable = true;
     wireless.enable = false;
   };
-
 
   services = {
     # journalctl --disk-usage

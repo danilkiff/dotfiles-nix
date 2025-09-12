@@ -1,26 +1,25 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
-  hardware.graphics = {
-    enable = true;
-  };
-
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-
-    powerManagement = {
-      enable = false;
-      finegrained = false;
+  hardware = {
+    graphics = {
+      enable = true;
     };
 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    open = true;
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement = {
+        enable = false;
+        finegrained = false;
+      };
+      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
 
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # verify: docker run --rm --device=nvidia.com/gpu=all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
+    nvidia-container-toolkit.enable = true;
   };
 
-  # verify: docker run --rm --device=nvidia.com/gpu=all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
-  hardware.nvidia-container-toolkit.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 }

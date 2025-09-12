@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   services.displayManager.defaultSession = "xfce";
   services.xserver = {

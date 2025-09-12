@@ -1,11 +1,7 @@
-{ config, pkgs, ... }:
-
-let
-  sf-pro-fonts = pkgs.callPackage ../../pkgs/sf-pro-fonts.nix { };
-in
+{ pkgs, ... }:
 {
   fonts = {
-    packages = [ sf-pro-fonts ];
+    packages = [ pkgs.sf-pro-fonts ];
     fontconfig = {
       enable = true;
       defaultFonts = {

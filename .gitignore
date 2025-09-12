@@ -1,4 +1,2 @@
 ssh/
 !ssh/*.pub
-
-nixos/hardware-configuration.nix

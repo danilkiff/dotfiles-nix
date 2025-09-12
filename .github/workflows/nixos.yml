@@ -5,6 +5,7 @@ on:
     branches: [ 'main' ]
     paths:
       - '**.nix'
+      - 'flake.*'
       - 'Dockerfile'
       - '.dockerignore'
       - '.github/workflows/**'
@@ -13,21 +14,26 @@ on:
     branches: [ 'main' ]
     paths:
       - '**.nix'
+      - 'flake.*'
       - 'Dockerfile'
       - '.dockerignore'
       - '.github/workflows/**'
+  workflow_dispatch:
 
 jobs:
-  validate:
-    name: Validate NixOS config via Docker
+  check:
     runs-on: ubuntu-24.04
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t nixos-validate .
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
 
-      - name: Run validation in container
-        run: docker run --rm nixos-validate
+      - name: Flake checks (light)
+        run: nix flake check --print-build-logs
+
+      - name: Eval NixOS drv (no build)
+        run: nix eval .#nixosConfigurations.oniguruma.config.system.build.toplevel.drvPath
+

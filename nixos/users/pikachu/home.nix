@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   tex = pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-full;
   };
 
-  userName  = "Oleg Y. Danilkiff";
+  userName = "Oleg Y. Danilkiff";
   userEmail = "13948753+danilkiff@users.noreply.github.com";
-  signKey   = "386E2F77CD7D10E0";
+  signKey = "386E2F77CD7D10E0";
 
 in
-{ 
+{
   home = {
     username = "pikachu";
     homeDirectory = "/home/pikachu";
@@ -107,8 +107,7 @@ in
   programs = {
     git = {
       enable = true;
-      userName = userName;
-      userEmail = userEmail;
+      inherit userName userEmail;
       signing = {
         key = signKey;
         signByDefault = true;
@@ -125,7 +124,7 @@ in
       };
     };
     gpg.enable = true;
-    
+
     ssh.enable = true;
     ssh.matchBlocks = {
       "github.com" = {
@@ -154,7 +153,9 @@ in
       };
       "*" = {
         host = "*";
-        extraOptions = { VisualHostKey = "yes"; };
+        extraOptions = {
+          VisualHostKey = "yes";
+        };
       };
     };
 

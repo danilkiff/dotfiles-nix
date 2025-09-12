@@ -1,6 +1,5 @@
 ssh/
 !ssh/*.pub
-nixos/hardware-configuration.nix
 
 README.md
 LICENSE

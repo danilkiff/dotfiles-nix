@@ -1,17 +1,8 @@
 FROM nixos/nix:2.29.0
 
+RUN mkdir -p /etc/nix && printf "experimental-features = nix-command flakes\n" > /etc/nix/nix.conf
+
 WORKDIR /workspace
-
-RUN nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs && \
-    nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager && \
-    nix-channel --update
-
 COPY . .
 
-RUN [ -f nixos/hardware-configuration.nix ] || cp nixos/template-hardware-configuration.nix nixos/hardware-configuration.nix
-
-CMD ["nix-instantiate", "<nixpkgs/nixos>", \
-        "-A", "system", \
-        "-I", "nixos-config=nixos/configuration.nix" \
-]
-
+CMD ["nix", "flake", "check"]
