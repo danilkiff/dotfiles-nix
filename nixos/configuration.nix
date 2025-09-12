@@ -1,26 +1,9 @@
 { config, pkgs, ... }:
 
-let
-  sf-pro-fonts = pkgs.callPackage ./pkgs/sf-pro-fonts.nix { };
-in
 {
   nixpkgs = {
     config.allowUnfree = true;
     hostPlatform = "x86_64-linux";
-  };
-
-   fonts = {
-    packages = [
-      sf-pro-fonts
-    ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "SF Pro Text" ];
-        sansSerif = [ "SF Pro Display" ];
-        monospace = [ "SF Mono" ];
-      };
-    };
   };
 
   imports = [
@@ -28,8 +11,19 @@ in
      <home-manager/nixos>
 
     ./hardware-configuration.nix
+
+    ./modules/console.nix
+    ./modules/docker.nix
+    ./modules/gnupg.nix
+    ./modules/libvirt.nix
+    ./modules/locale.nix
     ./modules/nvidia.nix
-    ./modules/virtualization.nix
+    ./modules/ollama.nix
+    ./modules/ssh.nix
+
+    ./modules/desktop/fonts.nix
+    ./modules/desktop/steam.nix
+    ./modules/desktop/xfce.nix
   ];
 
   boot.loader = {
@@ -52,22 +46,6 @@ in
 
   environment.systemPackages = with pkgs; [
     home-manager
-    networkmanager
-    networkmanager-openvpn
-    pinentry-gtk2
-
-    xfce.xfce4-panel-profiles
-    xfce.xfce4-whiskermenu-plugin
-    xfce.xfce4-xkb-plugin
-    xfce.xfce4-icon-theme
-    xfce.ristretto
-
-    gruvbox-material-gtk-theme
-    gruvbox-gtk-theme
-
-    gruvbox-plus-icons
-    gruvbox-dark-icons-gtk
-
   ];
 
   security = {
@@ -75,43 +53,6 @@ in
     sudo = {
       enable = true;
       wheelNeedsPassword = false;
-
-      extraConfig = ''
-        Defaults env_keep += "SSH_AUTH_SOCK" # allow for sudo ssh
-      '';
-    };
-  };
-
-  programs = {
-    zsh.enable = true;
-
-    ssh.startAgent = true;
-
-    gnupg.agent = {
-      enable = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
-    };
-
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-        thunar-vcs-plugin
-      ];
-    };
-
-    # https://nixos.wiki/wiki/Steam
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-    };
-
-    appimage = {
-      enable = true;
-      binfmt = true;
     };
   };
 
@@ -130,79 +71,12 @@ in
     wireless.enable = false;
   };
 
-  # Locale settings
-  time.timeZone = "Europe/Moscow";
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
-
-  # https://github.com/ollama/ollama/issues/5905
-  # Forcing Ollama to bind to 0.0.0.0 instead of localhost
-  systemd.services = {
-    ollama.serviceConfig = {
-      Environment = [ "OLLAMA_HOST=0.0.0.0:11434" ];
-    };
-  };
 
   services = {
     # journalctl --disk-usage
     journald.extraConfig = ''
       SystemMaxUse=1G
     '';
-    gpm.enable = true;
-    ollama = {
-      enable = true;
-      acceleration = "cuda";
-      openFirewall = true;
-    };
-    openssh = {
-      enable = true;
-      settings = {
-        PermitRootLogin = "no";
-        PasswordAuthentication = false;
-        X11Forwarding = true;
-      };
-      authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
-    };
-    xserver = {
-      enable = true;
-      desktopManager = {
-        xfce.enable = true;
-      };
-      xkb = {
-        layout = "us,ru";
-        options = "grp:win_space_toggle,grp:alt_shift_toggle";
-      };
-    };
-    displayManager.defaultSession = "xfce";
-    # Enable sound with pipewire.
-    pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-    };
-  };
-
-  console =  {
-    earlySetup = true;
-    font = "ter-v16n";
-    packages = [ pkgs.terminus_font ];
-    useXkbConfig = true;
   };
 
   system.stateVersion = "25.05";
