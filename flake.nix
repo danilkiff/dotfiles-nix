@@ -66,8 +66,6 @@
       formatter.${system} = pkgs.nixfmt-rfc-style;
 
       checks.${system} = {
-        # oniguruma-build =
-        #   self.nixosConfigurations.oniguruma.config.system.build.toplevel;
 
         fmt = pkgs.runCommand "fmt-check" { } ''
           ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${self}
