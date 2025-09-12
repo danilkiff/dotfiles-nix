@@ -6,13 +6,15 @@ on:
     paths:
       - '**.nix'
       - 'Dockerfile'
+      - '.dockerignore'
       - '.github/workflows/**'
-  
+
   pull_request:
     branches: [ 'main' ]
     paths:
       - '**.nix'
       - 'Dockerfile'
+      - '.dockerignore'
       - '.github/workflows/**'
 
 jobs:

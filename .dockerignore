@@ -1,6 +1,5 @@
-ssh/id_ed25519
-ssh/known_hosts
-
+ssh/
+!ssh/*.pub
 nixos/hardware-configuration.nix
 
 README.md
