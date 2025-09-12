@@ -17,27 +17,23 @@
     let
       system = "x86_64-linux";
 
+      pkgs = import nixpkgs {
+        inherit system;
+        inherit overlays;
+        config.allowUnfree = true;
+      };
+
       overlays = [
-        (_final: prev: {
+        (_: prev: {
           sf-pro-fonts = prev.callPackage ./nixos/pkgs/sf-pro-fonts.nix { };
         })
       ];
 
-      pkgs = import nixpkgs {
-        inherit system;
-        inherit overlays;
-        config = {
-          allowUnfree = true;
-        };
-      };
-    in
-    {
-      nixosConfigurations = {
-        oniguruma = nixpkgs.lib.nixosSystem {
+      mkHost =
+        hostPath:
+        nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
             {
               nixpkgs = {
@@ -46,12 +42,16 @@
               };
             }
             home-manager.nixosModules.home-manager
-            ./nixos/configuration.nix
-            {
-              home-manager.useGlobalPkgs = true;
-            }
+            hostPath
+            { home-manager.useGlobalPkgs = true; }
           ];
         };
+    in
+    {
+      nixosConfigurations = {
+        oniguruma = mkHost ./nixos/hosts/oniguruma/host.nix;
+        capybara = mkHost ./nixos/hosts/capybara/host.nix;
+        hellicopter = mkHost ./nixos/hosts/hellicopter/host.nix;
       };
 
       devShells.${system}.default = pkgs.mkShell {

@@ -1,6 +1,9 @@
 .PHONY: help test check install gc fmt devshell
 
+HOST ?= oniguruma
+
 help:
+	@echo "HOST=[oniguruma|capybara|hellicopter]"
 	@echo "Targets:"
 	@echo "  test      - Build and run validation container (docker)"
 	@echo "  check     - nix flake check + dry-build"
@@ -14,10 +17,10 @@ test:
 
 check:
 	@nix flake check
-	@sudo nixos-rebuild dry-build --flake .#oniguruma
+	@sudo nixos-rebuild dry-build --flake .#$(HOST)
 
 install: check
-	@sudo nixos-rebuild switch --flake .#oniguruma
+	@sudo nixos-rebuild switch --flake .#$(HOST)
 
 gc:
 	@sudo nix-collect-garbage -d

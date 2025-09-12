@@ -3,9 +3,8 @@
 Personal NixOS setup with modular configuration for development, multimedia, and virtualization.
 
 > [!CAUTION]
-> This repo is public and intended for your own learning and research.
-> Always apply all necessary changes for your own configuration —
-> otherwise, you risk making your system unbootable or losing data.
+> Public repo. Adjust for your machines (disks, users, secrets). Wrong changes can break boot or lose data.
+> If you use ZFS, each host **must** have a unique `networking.hostId` (8 hex chars).
 
 ## Prereqs (once per machine)
 
@@ -15,26 +14,40 @@ sudo mkdir -p /etc/nix
 echo 'experimental-features = nix-command flakes' | sudo tee /etc/nix/nix.conf
 ````
 
+## Hosts
+
+Available NixOS hosts (flake outputs):
+
+* `oniguruma` — desktop profile
+* `capybara`
+* `hellicopter`
+
+Pick the current machine’s host and export it for convenience:
+
+```sh
+export HOST=oniguruma   # or: capybara | hellicopter
+```
+
 ## First use on a fresh install
 
 ```sh
 git clone https://github.com/danilkiff/dotfiles.git
 cd dotfiles
 
-# Put your generated hardware config here (or edit the template)
-# cp /etc/nixos/hardware-configuration.nix nixos/hardware-configuration.nix
+# Put your generated hardware config to the host folder:
+sudo nixos-generate-config --show-hardware-config > nixos/hosts/$HOST/hardware-configuration.nix
 
 # Optional: verify flake outputs
 nix flake show
 ```
 
-## Lifecycle cheat-sheet (assuming hostname is `oniguruma`)
+## Lifecycle cheat-sheet (multihost)
 
 ### Inspect / Validate
 
 ```sh
 # Fast evaluation (no builds)
-nix eval .#nixosConfigurations.oniguruma.config.system.build.toplevel.drvPath
+nix eval .#nixosConfigurations.$HOST.config.system.build.toplevel.drvPath
 
 # Static checks (fmt/statix/deadnix) — wired via flake checks
 nix flake check
@@ -44,7 +57,7 @@ nix flake check
 
 ```sh
 # Build system closure only
-nix build .#nixosConfigurations.oniguruma.config.system.build.toplevel
+nix build .#nixosConfigurations.$HOST.config.system.build.toplevel
 # Result symlink: ./result
 ```
 
@@ -52,24 +65,23 @@ nix build .#nixosConfigurations.oniguruma.config.system.build.toplevel
 
 ```sh
 # Dry run (fully evaluate + plan)
-sudo nixos-rebuild dry-build --flake .#oniguruma
+sudo nixos-rebuild dry-build --flake .#$HOST
 
 # Test (activate until next reboot)
-sudo nixos-rebuild test --flake .#oniguruma
+sudo nixos-rebuild test --flake .#$HOST
 
 # Switch (activate now)
-sudo nixos-rebuild switch --flake .#oniguruma
+sudo nixos-rebuild switch --flake .#$HOST
 
 # Safer rollout: stage for next boot
-sudo nixos-rebuild boot --flake .#oniguruma
+sudo nixos-rebuild boot --flake .#$HOST
 ```
 
 ### Rollback
 
 ```sh
-# To previous generation
 sudo nixos-rebuild switch --rollback
-# Or pick an older generation from the bootloader menu
+# or select an older generation in the bootloader menu
 ```
 
 ### Update inputs (nixpkgs, home-manager, etc.)
@@ -84,18 +96,15 @@ nix flake lock --update-input nixpkgs
 # Pin nixpkgs to a specific commit/branch
 nix flake lock --update-input nixpkgs github:NixOS/nixpkgs/<rev-or-branch>
 
-# Then rebuild
-sudo nixos-rebuild switch --flake .#oniguruma
+# Then rebuild the selected host
+sudo nixos-rebuild switch --flake .#$HOST
 ```
 
 ### Garbage collection / Store maintenance
 
 ```sh
-# Remove old generations (system + users) and free space
-sudo nix-collect-garbage -d
-
-# Deduplicate Nix store
-sudo nix store optimise
+sudo nix-collect-garbage -d      # remove old generations
+sudo nix store optimise          # deduplicate the Nix store
 ```
 
 ### Formatting & linters (local)
@@ -112,13 +121,21 @@ nix run nixpkgs#deadnix -- -f .
 
 ### CI tips
 
-* Fast path (per PR): `nix flake check` + `nix eval .#…toplevel.drvPath`
-* Heavy path (on demand): `nix build .#nixosConfigurations.oniguruma.config.system.build.toplevel`
+* Fast path (per PR): `nix flake check` + `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`
+* Heavy path (on demand/matrix): `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` for each host
 
-## Makefile Usage
+## Makefile usage
 
-You can manage most common actions via the `Makefile` in the project root. Use `make help` for available targets.
+Targets accept `HOST=<oniguruma|capybara|hellicopter>`:
+
+```sh
+make check HOST=$HOST
+make install HOST=$HOST
+make build HOST=$HOST
+make gc
+make fmt
+```
 
 ## License
 
-MIT. See [LICENSE](LICENSE) for details.
+MIT. See [LICENSE](LICENSE).
