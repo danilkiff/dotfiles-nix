@@ -40,6 +40,16 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 14d";
+  };
+
+  nix.settings.auto-optimise-store = true;
+  nix.settings.keep-derivations = false;
+  nix.settings.keep-outputs = false;
+
   environment.systemPackages = with pkgs; [
     home-manager
     networkmanager
