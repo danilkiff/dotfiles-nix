@@ -20,9 +20,17 @@ on:
       - '.github/workflows/**'
   workflow_dispatch:
 
+concurrency:
+  group: nixos-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  check:
+  flake-check:
     runs-on: ubuntu-24.04
+
     steps:
       - uses: actions/checkout@v4
 
@@ -34,6 +42,24 @@ jobs:
       - name: Flake checks (light)
         run: nix flake check --print-build-logs
 
-      - name: Eval NixOS drv (no build)
-        run: nix eval .#nixosConfigurations.oniguruma.config.system.build.toplevel.drvPath
+  eval-hosts:
+    needs: flake-check
+    runs-on: ubuntu-24.04
 
+    strategy:
+      fail-fast: false
+      matrix:
+        host:
+          - oniguruma
+          - capybara
+          - hellicopter
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Eval NixOS drv (no build) for ${{ matrix.host }}
+        run: nix eval .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel.drvPath
