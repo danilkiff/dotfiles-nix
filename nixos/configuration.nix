@@ -156,6 +156,10 @@ in
   };
 
   services = {
+    # journalctl --disk-usage
+    journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
     gpm.enable = true;
     ollama = {
       enable = true;
