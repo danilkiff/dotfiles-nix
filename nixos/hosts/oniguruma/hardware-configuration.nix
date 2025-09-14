@@ -29,18 +29,31 @@
     extraModulePackages = [ ];
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/f345b896-3054-47f6-af64-207ed035a992";
-    fsType = "ext4";
-  };
+  fileSystems = {
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/83AE-E66C";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
+    "/" = {
+      device = "/dev/disk/by-uuid/f345b896-3054-47f6-af64-207ed035a992";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/83AE-E66C";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
+
+    "/home/pikachu/AGI" = {
+      device = "/dev/disk/by-uuid/cd45c275-adbc-486c-8133-650d13689ba7";
+      fsType = "ext4";
+    };
+
+    "/home/pikachu/Storage" = {
+      device = "/dev/disk/by-uuid/12b7168e-c002-44b7-80d1-78009a6d690e";
+      fsType = "ext4";
+    };
   };
 
   swapDevices = [ ];
