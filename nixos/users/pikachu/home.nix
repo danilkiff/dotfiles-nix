@@ -79,9 +79,10 @@ in
     pciutils
     poetry
     pulsemixer
-    python313
-    python313Packages.pip
-    python313Packages.pipx
+    python312
+    python312Packages.evdev
+    python312Packages.pip
+    python312Packages.pipx
     redshift
     rustc
     rustfmt
