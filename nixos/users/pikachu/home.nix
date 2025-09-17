@@ -196,7 +196,6 @@ in
           "python"
           "pyenv"
           "pip"
-          "virtualenv"
           "tmux"
           "rust"
         ];
