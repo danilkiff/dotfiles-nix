@@ -16,47 +16,38 @@ in
   };
 
   home.packages = with pkgs; [
-    chromium
     curl
     dig
-    discord
     file-roller
     firefox
     flameshot
+    gh
     gparted
     htop
     httpie
-    hunspell
-    hunspellDicts.en_US
-    hunspellDicts.ru_RU
     iperf3
     jq
-    kubectl
     libxfs
     lm_sensors
     man-pages
     man-pages-posix
     mc
     nmap
-    obsidian
+    openvpn
     p7zip
     pciutils
     pulsemixer
     redshift
     seahorse
-    telegram-desktop
     thunderbird-bin
-    transmission_4-gtk
     tree
     unrar
     unzip
     usbutils
-    vlc
     wget
-    yandex-disk
+    yq
     yt-dlp
     zip
-    zotero
   ];
 
   programs = {

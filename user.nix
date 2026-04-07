@@ -11,7 +11,6 @@ in
     extraGroups = [
       "wheel"
       "docker"
-      "transmission"
       "video"
     ];
     openssh.authorizedKeys.keys = [ sshPubKey ];

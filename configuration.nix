@@ -16,6 +16,7 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" ];
+    tmp.cleanOnBoot = true;
   };
 
   nix = {
@@ -35,6 +36,15 @@
       ];
       keep-derivations = false;
       keep-outputs = false;
+      trusted-users = [ "@wheel" ];
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
   };
 
@@ -63,6 +73,8 @@
 
   programs = {
     zsh.enable = true;
+    # command-not-found's DB isn't populated on flake systems; disable noise.
+    command-not-found.enable = false;
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
@@ -119,6 +131,7 @@
 
   networking = {
     hostName = "llathasa";
+    nftables.enable = true;
     firewall.enable = true;
     networkmanager.enable = true;
     wireless.enable = false;
@@ -126,8 +139,23 @@
 
   hardware = {
     enableRedistributableFirmware = true;
-    graphics.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+    graphics = {
+      enable = true;
+      # Intel Quick Sync / VAAPI for hardware video decode in browsers, mpv, etc.
+      extraPackages = with pkgs; [
+        intel-media-driver
+        libvdpau-va-gl
+      ];
+    };
   };
+
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
+
+  services.blueman.enable = true;
 
   services.pipewire = {
     enable = true;

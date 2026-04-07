@@ -10,9 +10,8 @@ _: {
       flags = [ "--all" ];
     };
 
+    # Cap per-container log growth so a chatty service can't fill the disk.
     daemon.settings = {
-      registry-mirrors = [ "https://nexus.z.pq3.ru" ];
-      # Cap per-container log growth so a chatty service can't fill the disk.
       log-driver = "json-file";
       log-opts = {
         max-size = "10m";
