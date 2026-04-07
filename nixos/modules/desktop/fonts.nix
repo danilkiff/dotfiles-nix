@@ -1,7 +1,19 @@
 { pkgs, ... }:
 {
   fonts = {
-    packages = [ pkgs.sf-pro-fonts ];
+    packages = with pkgs; [
+      sf-pro-fonts
+      cascadia-code
+      nerd-fonts.fantasque-sans-mono
+      nerd-fonts.fira-code
+      nerd-fonts.hack
+      nerd-fonts.iosevka-term
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.meslo-lg
+      nerd-fonts.ubuntu
+      nerd-fonts.ubuntu-mono
+      nerd-fonts.ubuntu-sans
+    ];
     fontconfig = {
       enable = true;
       defaultFonts = {

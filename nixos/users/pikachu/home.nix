@@ -23,7 +23,6 @@ in
   home.packages = with pkgs; [
     android-tools
     cargo
-    cascadia-code
     chromium
     curl
     dig
@@ -55,15 +54,6 @@ in
     man-pages
     man-pages-posix
     mc
-    nerd-fonts.fantasque-sans-mono
-    nerd-fonts.fira-code
-    nerd-fonts.hack
-    nerd-fonts.iosevka-term
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.meslo-lg
-    nerd-fonts.ubuntu
-    nerd-fonts.ubuntu-mono
-    nerd-fonts.ubuntu-sans
     nmap
     obsidian
     onlyoffice-bin
