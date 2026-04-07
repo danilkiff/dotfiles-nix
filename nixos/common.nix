@@ -34,12 +34,15 @@
       dates = "daily";
       options = "--delete-older-than 14d";
     };
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      auto-optimise-store = true;
       keep-derivations = false;
       keep-outputs = false;
     };
