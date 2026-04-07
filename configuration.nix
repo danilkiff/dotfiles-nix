@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    ./nixos/users/pikachu.nix
+    ./user.nix
 
     ./nixos/modules/console.nix
     ./nixos/modules/docker.nix
@@ -65,7 +65,7 @@
     useUserPackages = true;
     backupFileExtension = "backup";
     users.pikachu = {
-      imports = [ ./nixos/users/pikachu/home.nix ];
+      imports = [ ./home.nix ];
       home.stateVersion = "25.05";
     };
   };
