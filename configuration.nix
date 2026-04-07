@@ -13,9 +13,7 @@
     ./nixos/modules/locale.nix
     ./nixos/modules/ssh.nix
     ./nixos/modules/laptop.nix
-    ./nixos/modules/desktop/fonts.nix
-    ./nixos/modules/desktop/steam.nix
-    ./nixos/modules/desktop/xfce.nix
+    ./modules/desktop.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
