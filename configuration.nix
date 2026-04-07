@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./user.nix
-    ./nixos/modules/laptop.nix
+    ./modules/laptop.nix
     ./modules/desktop.nix
     ./modules/virtualisation.nix
   ];

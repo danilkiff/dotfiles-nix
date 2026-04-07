@@ -19,7 +19,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       overlays = [
         (_: prev: {
-          sf-pro-fonts = prev.callPackage ./nixos/pkgs/sf-pro-fonts.nix { };
+          sf-pro-fonts = prev.callPackage ./pkgs/sf-pro-fonts.nix { };
         })
       ];
     in
