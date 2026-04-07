@@ -40,9 +40,16 @@
         ];
       };
 
+      # Tools for editing this flake itself. Pinned to nixpkgs so the
+      # editor LSP and CI lint use identical versions. Auto-loaded by
+      # direnv via .envrc, so opening the repo activates the toolchain.
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.git
+        packages = with pkgs; [
+          nil # Nix LSP
+          statix # AST-based linter
+          deadnix # dead-code detector (matches the treefmt rule)
+          nix-output-monitor # `nom` — readable rebuild output
+          nvd # diff store paths between generations
           treefmtEval.config.build.wrapper
         ];
       };
