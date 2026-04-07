@@ -135,6 +135,10 @@ in
         identityFile = "~/.ssh/id_ed25519";
         identitiesOnly = true;
       };
+      # cnbs.lan: trusted private LAN with frequent VM/host re-provisioning,
+      # which constantly invalidates known_hosts and triggers TOFU warnings.
+      # Disabling host-key verification here is a deliberate trade-off and
+      # MUST NOT be reused for any host outside this LAN.
       "*.cnbs.lan" = {
         host = "*.cnbs.lan";
         user = "pikachu";
