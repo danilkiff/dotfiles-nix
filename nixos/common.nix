@@ -35,6 +35,10 @@
       options = "--delete-older-than 14d";
     };
     settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
       keep-derivations = false;
       keep-outputs = false;
