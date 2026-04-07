@@ -209,7 +209,7 @@ in
       enable = true;
       extraConfig = ''
         set -g mouse on
-        set -g default-terminal "xterm-256color"
+        set -g default-terminal "tmux-256color"
       '';
     };
   };
