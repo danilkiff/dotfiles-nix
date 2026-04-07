@@ -2,7 +2,7 @@
   description = "NixOS flakes config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/88983d4b665f"; # pinned nixos-25.05@2025-07-08
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
