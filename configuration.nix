@@ -7,13 +7,12 @@
     ./user.nix
 
     ./nixos/modules/console.nix
-    ./nixos/modules/docker.nix
     ./nixos/modules/gnupg.nix
-    ./nixos/modules/libvirt.nix
     ./nixos/modules/locale.nix
     ./nixos/modules/ssh.nix
     ./nixos/modules/laptop.nix
     ./modules/desktop.nix
+    ./modules/virtualisation.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
