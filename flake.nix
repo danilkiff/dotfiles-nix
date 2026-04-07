@@ -13,7 +13,7 @@
       nixpkgs,
       home-manager,
       ...
-    }@inputs:
+    }:
     let
       system = "x86_64-linux";
 
@@ -33,7 +33,6 @@
         hostPath:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
           modules = [
             {
               nixpkgs = {
