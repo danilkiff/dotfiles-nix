@@ -34,7 +34,7 @@
             };
           }
           home-manager.nixosModules.home-manager
-          ./nixos/hosts/llathasa/host.nix
+          ./configuration.nix
         ];
       };
 

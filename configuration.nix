@@ -1,20 +1,24 @@
 { pkgs, ... }:
 
 {
-  nixpkgs = {
-    hostPlatform = "x86_64-linux";
-  };
-
   imports = [
-    ./users/pikachu.nix
+    ./hardware-configuration.nix
 
-    ./modules/console.nix
-    ./modules/docker.nix
-    ./modules/gnupg.nix
-    ./modules/libvirt.nix
-    ./modules/locale.nix
-    ./modules/ssh.nix
+    ./nixos/users/pikachu.nix
+
+    ./nixos/modules/console.nix
+    ./nixos/modules/docker.nix
+    ./nixos/modules/gnupg.nix
+    ./nixos/modules/libvirt.nix
+    ./nixos/modules/locale.nix
+    ./nixos/modules/ssh.nix
+    ./nixos/modules/laptop.nix
+    ./nixos/modules/desktop/fonts.nix
+    ./nixos/modules/desktop/steam.nix
+    ./nixos/modules/desktop/xfce.nix
   ];
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   boot = {
     loader = {
@@ -60,16 +64,21 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users = {
-      pikachu = import ./users/pikachu/home.nix;
+    users.pikachu = {
+      imports = [ ./nixos/users/pikachu/home.nix ];
+      home.stateVersion = "25.05";
     };
   };
 
   networking = {
+    hostName = "llathasa";
+    hostId = "af714156"; # head -c 8 /etc/machine-id
     firewall.enable = true;
     networkmanager.enable = true;
     wireless.enable = false;
   };
+
+  hardware.graphics.enable = true;
 
   services = {
     # journalctl --disk-usage
@@ -77,4 +86,6 @@
       SystemMaxUse=1G
     '';
   };
+
+  system.stateVersion = "25.05";
 }
