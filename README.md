@@ -114,21 +114,9 @@ nix run nixpkgs#statix -- check .
 nix run nixpkgs#deadnix -- -f .
 ```
 
-### CI tips
-
-* Fast path (per PR): `nix flake check` + `nix eval .#nixosConfigurations.llathasa.config.system.build.toplevel.drvPath`
-* Heavy path (on demand): `nix build .#nixosConfigurations.llathasa.config.system.build.toplevel`
-
 ## Makefile usage
 
-`HOST` defaults to `llathasa` and is the only supported value:
-
-```sh
-make check
-make install
-make gc
-make fmt
-```
+Run `make` to explore available targets.
 
 ## License
 
