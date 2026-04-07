@@ -36,10 +36,7 @@
             {
               nixpkgs = {
                 inherit overlays;
-                config = {
-                  allowUnfree = true;
-                  permittedInsecurePackages = [ "openssl-1.1.1w" ]; # sublime
-                };
+                config.allowUnfree = true;
               };
             }
             home-manager.nixosModules.home-manager

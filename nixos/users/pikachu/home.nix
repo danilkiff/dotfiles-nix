@@ -87,7 +87,6 @@ in
     rustc
     rustfmt
     seahorse
-    sublime4
     telegram-desktop
     tex
     texstudio
