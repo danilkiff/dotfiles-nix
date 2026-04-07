@@ -13,6 +13,7 @@ in
       "docker"
       "libvirtd"
       "transmission"
+      "video"
     ];
     openssh.authorizedKeys.keys = [ sshPubKey ];
   };

@@ -2,6 +2,7 @@ _: {
   imports = [
     ./hardware-configuration.nix
     ../../common.nix
+    ../../modules/laptop.nix
     ../../modules/desktop/fonts.nix
     ../../modules/desktop/steam.nix
     ../../modules/desktop/xfce.nix
