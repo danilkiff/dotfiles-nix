@@ -3,13 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-
     ./user.nix
-
-    ./nixos/modules/console.nix
-    ./nixos/modules/gnupg.nix
-    ./nixos/modules/locale.nix
-    ./nixos/modules/ssh.nix
     ./nixos/modules/laptop.nix
     ./modules/desktop.nix
     ./modules/virtualisation.nix
@@ -49,11 +43,60 @@
     };
   };
 
+  time.timeZone = "Europe/Moscow";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
+  };
+
+  console = {
+    earlySetup = true;
+    font = "ter-v16n";
+    packages = [ pkgs.terminus_font ];
+    useXkbConfig = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    pinentry-gtk2
+  ];
+
+  programs = {
+    zsh.enable = true;
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gtk2;
+    };
+    ssh.startAgent = true;
+  };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      X11Forwarding = true;
+    };
+    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+  };
+
   security = {
     rtkit.enable = true;
     sudo = {
       enable = true;
       wheelNeedsPassword = true;
+      extraConfig = ''
+        Defaults env_keep += "SSH_AUTH_SOCK" # allow for sudo ssh
+      '';
     };
   };
 
@@ -77,12 +120,9 @@
 
   hardware.graphics.enable = true;
 
-  services = {
-    # journalctl --disk-usage
-    journald.extraConfig = ''
-      SystemMaxUse=1G
-    '';
-  };
+  services.journald.extraConfig = ''
+    SystemMaxUse=1G
+  '';
 
   system.stateVersion = "25.05";
 }
