@@ -1,5 +1,5 @@
 {
-  description = "NixOS flakes config";
+  description = "Personal NixOS config for llathasa (ThinkPad T14)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
