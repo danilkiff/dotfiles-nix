@@ -29,8 +29,8 @@ export HOST=llathasa
 git clone https://github.com/danilkiff/dotfiles.git
 cd dotfiles
 
-# Put your generated hardware config to the host folder:
-sudo nixos-generate-config --show-hardware-config > nixos/hosts/$HOST/hardware-configuration.nix
+# Put your generated hardware config to the repo root:
+sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
 
 # Optional: verify flake outputs
 nix flake show
