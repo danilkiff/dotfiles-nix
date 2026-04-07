@@ -61,18 +61,30 @@
     useXkbConfig = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    pinentry-gtk2
-  ];
-
   programs = {
     zsh.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc.lib
+        zlib
+        openssl
+        curl
+        glib
+        icu
+        libxml2
+        libxcrypt
+      ];
+    };
     gnupg.agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
     };
-    ssh.startAgent = true;
   };
+
+  # pinentry-gnome3 needs gcr's D-Bus service to display prompts on XFCE.
+  services.dbus.packages = [ pkgs.gcr ];
 
   services.openssh = {
     enable = true;

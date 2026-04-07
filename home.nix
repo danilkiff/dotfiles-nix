@@ -23,9 +23,6 @@ in
     file-roller
     firefox
     flameshot
-    gnome-tweaks
-    gnomeExtensions.pop-shell
-    gpa
     gparted
     htop
     httpie
@@ -43,10 +40,10 @@ in
     nmap
     obsidian
     p7zip
-    papers
     pciutils
     pulsemixer
     redshift
+    seahorse
     telegram-desktop
     thunderbird-bin
     transmission_4-gtk
@@ -157,11 +154,6 @@ in
         ];
         theme = "robbyrussell";
       };
-      initContent = ''
-        if ! ssh-add -l &>/dev/null; then
-          ssh-add 2> /dev/null
-        fi
-      '';
     };
 
     tmux = {
@@ -170,6 +162,11 @@ in
         set -g mouse on
         set -g default-terminal "tmux-256color"
       '';
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 }
