@@ -1,59 +1,19 @@
-name: NixOS Validation
+name: NixOS
 
-on:
-  push:
-    branches: [ 'main' ]
-    paths:
-      - '**.nix'
-      - 'flake.*'
-      - 'Dockerfile'
-      - '.dockerignore'
-      - 'Makefile'
-      - '.github/workflows/**'
-
-  pull_request:
-    branches: [ 'main' ]
-    paths:
-      - '**.nix'
-      - 'flake.*'
-      - 'Dockerfile'
-      - '.dockerignore'
-      - 'Makefile'
-      - '.github/workflows/**'
-
-concurrency:
-  group: nixos-${{ github.ref }}
-  cancel-in-progress: true
+on: [push, pull_request]
 
 permissions:
   contents: read
 
 jobs:
-  flake-check:
-    runs-on: ubuntu-22.04
-
+  validate:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
+      - uses: cachix/install-nix-action@v27
         with:
           extra_nix_config: experimental-features = nix-command flakes
 
-      - name: Flake checks (light)
-        run: make check
-
-  eval-host:
-    needs: flake-check
-    runs-on: ubuntu-22.04
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
-        with:
-          extra_nix_config: experimental-features = nix-command flakes
-
-      - name: Eval NixOS drv (no build) for llathasa
-        run: make eval
+      - run: make check
+      - run: make eval
