@@ -46,9 +46,7 @@
     in
     {
       nixosConfigurations = {
-        oniguruma = mkHost ./nixos/hosts/oniguruma/host.nix;
-        capybara = mkHost ./nixos/hosts/capybara/host.nix;
-        hellicopter = mkHost ./nixos/hosts/hellicopter/host.nix;
+        llathasa = mkHost ./nixos/hosts/llathasa/host.nix;
       };
 
       devShells.${system}.default = pkgs.mkShell {
