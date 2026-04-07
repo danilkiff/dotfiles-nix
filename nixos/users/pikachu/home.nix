@@ -29,18 +29,12 @@ in
     curl
     dig
     discord
-    docker
-    docker-compose
     evince
     file-roller
     firefox
     flameshot
-    gcc
-    git
     gnome-tweaks
     gnomeExtensions.pop-shell
-    gnumake
-    gnupg
     gpa
     gparted
     htop
