@@ -6,6 +6,6 @@ _: {
 
   networking = {
     hostName = "hellicopter";
-    hostId = "cc380966"; # head -c 8 /etc/machine-id
+    hostId = "ab415268"; # head -c 8 /etc/machine-id
   };
 }

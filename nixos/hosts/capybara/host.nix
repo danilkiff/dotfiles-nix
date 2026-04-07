@@ -6,6 +6,6 @@ _: {
 
   networking = {
     hostName = "capybara";
-    hostId = "cc380966"; # head -c 8 /etc/machine-id
+    hostId = "ed789665"; # head -c 8 /etc/machine-id
   };
 }
