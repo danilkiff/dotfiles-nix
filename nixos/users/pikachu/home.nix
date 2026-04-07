@@ -13,7 +13,6 @@ in
   home = {
     username = "pikachu";
     homeDirectory = "/home/pikachu";
-    stateVersion = "25.05";
 
     sessionVariables = {
       EDITOR = "nvim";

@@ -77,6 +77,4 @@
       SystemMaxUse=1G
     '';
   };
-
-  system.stateVersion = "25.05";
 }
