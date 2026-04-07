@@ -26,8 +26,8 @@ export HOST=llathasa
 ## First use on a fresh install
 
 ```sh
-git clone https://github.com/danilkiff/dotfiles.git
-cd dotfiles
+git clone https://github.com/danilkiff/dotfiles-nix.git
+cd dotfiles-nix
 
 # Put your generated hardware config to the repo root:
 sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix

@@ -1,4 +1,5 @@
-_: {
+{ ... }:
+{
   # Power management. Conflicts with power-profiles-daemon, which is not
   # enabled here (XFCE uses xfce4-power-manager and that coexists with TLP).
   services.tlp.enable = true;

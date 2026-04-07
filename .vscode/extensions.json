@@ -1,8 +1,0 @@
-{
-    "recommendations": [
-        "ms-vscode.makefile-tools",
-        "github.vscode-github-actions",
-        "xadillax.viml",
-        "bbenoist.nix"
-    ]
-}

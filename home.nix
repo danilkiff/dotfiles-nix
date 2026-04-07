@@ -8,6 +8,7 @@ in
   home = {
     username = "pikachu";
     homeDirectory = "/home/pikachu";
+    stateVersion = "25.05";
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -19,7 +20,6 @@ in
     curl
     dig
     file-roller
-    firefox
     flameshot
     gh
     gparted
@@ -39,7 +39,6 @@ in
     pulsemixer
     redshift
     seahorse
-    thunderbird-bin
     tree
     unrar
     unzip
@@ -135,6 +134,17 @@ in
 
     zsh = {
       enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      historySubstringSearch.enable = true;
+      history = {
+        size = 100000;
+        save = 100000;
+        ignoreDups = true;
+        ignoreSpace = true;
+        share = true;
+      };
       oh-my-zsh = {
         enable = true;
         plugins = [

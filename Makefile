@@ -38,4 +38,4 @@ gc:
 	@nixos-rebuild list-generations
 
 fmt:
-	@find . -name '*.nix' -not -path './.git/*' -exec nix fmt -- {} +
+	@nix fmt

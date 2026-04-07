@@ -14,9 +14,14 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" ];
     tmp.cleanOnBoot = true;
+    # Raise inotify ceilings for IDEs, bundlers, and file watchers
+    # that crash silently on busy monorepos.
+    kernel.sysctl = {
+      "fs.inotify.max_user_watches" = 524288;
+      "fs.inotify.max_user_instances" = 512;
+    };
   };
 
   nix = {
@@ -34,8 +39,6 @@
         "nix-command"
         "flakes"
       ];
-      keep-derivations = false;
-      keep-outputs = false;
       trusted-users = [ "@wheel" ];
       substituters = [
         "https://cache.nixos.org"
@@ -73,8 +76,15 @@
 
   programs = {
     zsh.enable = true;
+    firefox.enable = true;
     # command-not-found's DB isn't populated on flake systems; disable noise.
     command-not-found.enable = false;
+    # Replacement for command-not-found: prebuilt index of nixpkgs binaries,
+    # plus `nix-locate` for "which package ships /usr/bin/foo".
+    nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
@@ -103,9 +113,7 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      X11Forwarding = true;
     };
-    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
   };
 
   security = {
@@ -123,11 +131,12 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.pikachu = {
-      imports = [ ./home.nix ];
-      home.stateVersion = "25.05";
-    };
+    users.pikachu.imports = [ ./home.nix ];
   };
+
+  # Install man pages from sections 2/3 (syscalls, libc) — needed when
+  # actually writing C/Rust/Go FFI rather than just running tools.
+  documentation.dev.enable = true;
 
   networking = {
     hostName = "llathasa";
