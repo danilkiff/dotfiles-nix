@@ -44,7 +44,6 @@
             }
             home-manager.nixosModules.home-manager
             hostPath
-            { home-manager.useGlobalPkgs = true; }
           ];
         };
     in
