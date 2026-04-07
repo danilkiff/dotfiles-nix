@@ -3,8 +3,7 @@
 Personal NixOS setup with modular configuration for development, multimedia, and virtualization.
 
 > [!CAUTION]
-> Public repo. Adjust for your machines (disks, users, secrets). Wrong changes can break boot or lose data.
-> If you use ZFS, each host **must** have a unique `networking.hostId` (8 hex chars).
+> Public repo. Adjust for your machine (disks, users, secrets). Wrong changes can break boot or lose data.
 
 ## Prereqs (once per machine)
 
@@ -14,18 +13,14 @@ sudo mkdir -p /etc/nix
 echo 'experimental-features = nix-command flakes' | sudo tee /etc/nix/nix.conf
 ````
 
-## Hosts
+## Host
 
-Available NixOS hosts (flake outputs):
+This flake exposes a single NixOS host:
 
-* `oniguruma` — desktop profile
-* `capybara`
-* `hellicopter`
-
-Pick the current machine’s host and export it for convenience:
+* `llathasa` — Lenovo ThinkPad T14 Gen 5 (Intel), XFCE desktop profile
 
 ```sh
-export HOST=oniguruma   # or: capybara | hellicopter
+export HOST=llathasa
 ```
 
 ## First use on a fresh install
@@ -41,7 +36,7 @@ sudo nixos-generate-config --show-hardware-config > nixos/hosts/$HOST/hardware-c
 nix flake show
 ```
 
-## Lifecycle cheat-sheet (multihost)
+## Lifecycle cheat-sheet
 
 ### Inspect / Validate
 
@@ -121,17 +116,16 @@ nix run nixpkgs#deadnix -- -f .
 
 ### CI tips
 
-* Fast path (per PR): `nix flake check` + `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`
-* Heavy path (on demand/matrix): `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` for each host
+* Fast path (per PR): `nix flake check` + `nix eval .#nixosConfigurations.llathasa.config.system.build.toplevel.drvPath`
+* Heavy path (on demand): `nix build .#nixosConfigurations.llathasa.config.system.build.toplevel`
 
 ## Makefile usage
 
-Targets accept `HOST=<oniguruma|capybara|hellicopter>`:
+`HOST` defaults to `llathasa` and is the only supported value:
 
 ```sh
-make check HOST=$HOST
-make install HOST=$HOST
-make build HOST=$HOST
+make check
+make install
 make gc
 make fmt
 ```
