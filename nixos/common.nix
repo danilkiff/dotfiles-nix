@@ -41,10 +41,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
-
   security = {
     rtkit.enable = true;
     sudo = {
