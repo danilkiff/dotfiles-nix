@@ -1,22 +1,29 @@
-.PHONY: help test check install gc fmt devshell
+.PHONY: help test check eval dry install gc fmt
 
 HOST ?= llathasa
 
 help:
 	@echo "HOST=[llathasa]"
 	@echo "Targets:"
+	@echo "  check     - nix flake check (CI-safe)"
+	@echo "  eval      - Evaluate host toplevel drvPath (CI-safe)"
 	@echo "  test      - Build and run validation container (docker)"
-	@echo "  check     - nix flake check + dry-build"
-	@echo "  install   - nixos-rebuild switch --flake"
+	@echo "  dry       - nixos-rebuild dry-build (NixOS host only)"
+	@echo "  install   - nixos-rebuild switch (NixOS host only)"
 	@echo "  gc        - Garbage-collect"
 	@echo "  fmt       - Format Nix files"
 
+check:
+	@nix flake check --print-build-logs
+
+eval:
+	@nix eval .#nixosConfigurations.$(HOST).config.system.build.toplevel.drvPath
+
 test:
 	@docker build -t nixos-validate .
-	@docker run --rm -it nixos-validate
+	@docker run --rm -i nixos-validate
 
-check:
-	@nix flake check
+dry:
 	@sudo nixos-rebuild dry-build --flake .#$(HOST)
 
 install: check
