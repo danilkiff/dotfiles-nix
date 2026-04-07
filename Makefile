@@ -1,4 +1,4 @@
-.PHONY: help test check eval dry install gc fmt
+.PHONY: help test check eval dry install update gc fmt
 
 HOST ?= llathasa
 
@@ -10,6 +10,7 @@ help:
 	@echo "  test      - Build and run validation container (docker)"
 	@echo "  dry       - nixos-rebuild dry-build (NixOS host only)"
 	@echo "  install   - nixos-rebuild switch (NixOS host only)"
+	@echo "  update    - nix flake update (bump inputs)"
 	@echo "  gc        - Garbage-collect"
 	@echo "  fmt       - Format Nix files"
 
@@ -28,6 +29,9 @@ dry:
 
 install: check
 	@sudo nixos-rebuild switch --flake .#$(HOST)
+
+update:
+	@nix flake update
 
 gc:
 	@sudo nix-collect-garbage -d
