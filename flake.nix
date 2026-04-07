@@ -32,7 +32,6 @@
       mkHost =
         hostPath:
         nixpkgs.lib.nixosSystem {
-          inherit system;
           modules = [
             {
               nixpkgs = {
