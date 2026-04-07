@@ -51,7 +51,7 @@
 
       checks.${system} = {
         fmt = pkgs.runCommand "fmt-check" { } ''
-          ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${self}
+          find ${self} -name '*.nix' -exec ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check {} +
           mkdir -p $out
         '';
 
