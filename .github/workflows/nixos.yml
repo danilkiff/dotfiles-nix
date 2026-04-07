@@ -8,6 +8,7 @@ on:
       - 'flake.*'
       - 'Dockerfile'
       - '.dockerignore'
+      - 'Makefile'
       - '.github/workflows/**'
 
   pull_request:
@@ -17,6 +18,7 @@ on:
       - 'flake.*'
       - 'Dockerfile'
       - '.dockerignore'
+      - 'Makefile'
       - '.github/workflows/**'
 
 concurrency:
@@ -39,7 +41,7 @@ jobs:
           extra_nix_config: experimental-features = nix-command flakes
 
       - name: Flake checks (light)
-        run: nix flake check --print-build-logs
+        run: make check
 
   eval-host:
     needs: flake-check
@@ -54,4 +56,4 @@ jobs:
           extra_nix_config: experimental-features = nix-command flakes
 
       - name: Eval NixOS drv (no build) for llathasa
-        run: nix eval .#nixosConfigurations.llathasa.config.system.build.toplevel.drvPath
+        run: make eval
