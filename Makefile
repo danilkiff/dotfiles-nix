@@ -1,9 +1,9 @@
 .PHONY: help test check install gc fmt devshell
 
-HOST ?= oniguruma
+HOST ?= llathasa
 
 help:
-	@echo "HOST=[oniguruma|capybara|hellicopter]"
+	@echo "HOST=[llathasa]"
 	@echo "Targets:"
 	@echo "  test      - Build and run validation container (docker)"
 	@echo "  check     - nix flake check + dry-build"
