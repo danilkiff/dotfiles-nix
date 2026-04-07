@@ -1,13 +1,8 @@
 { pkgs, ... }:
 let
-  tex = pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-full;
-  };
-
   userName = "Oleg Y. Danilkiff";
   userEmail = "13948753+danilkiff@users.noreply.github.com";
   signKey = "386E2F77CD7D10E0";
-
 in
 {
   home = {
@@ -21,13 +16,10 @@ in
   };
 
   home.packages = with pkgs; [
-    android-tools
-    cargo
     chromium
     curl
     dig
     discord
-    evince
     file-roller
     firefox
     flameshot
@@ -41,14 +33,8 @@ in
     hunspellDicts.en_US
     hunspellDicts.ru_RU
     iperf3
-    jetbrains.goland
-    jetbrains.idea-ultimate
-    jetbrains.pycharm-professional
-    jetbrains.rust-rover
     jq
-    keepassxc
     kubectl
-    libreoffice
     libxfs
     lm_sensors
     man-pages
@@ -56,23 +42,12 @@ in
     mc
     nmap
     obsidian
-    onlyoffice-bin
     p7zip
     papers
     pciutils
-    poetry
     pulsemixer
-    python312
-    python312Packages.evdev
-    python312Packages.pip
-    python312Packages.pipx
     redshift
-    rustc
-    rustfmt
-    seahorse
     telegram-desktop
-    tex
-    texstudio
     thunderbird-bin
     transmission_4-gtk
     tree
@@ -81,7 +56,6 @@ in
     usbutils
     vlc
     wget
-    windsurf
     yandex-disk
     yt-dlp
     zip
@@ -156,7 +130,6 @@ in
         ms-toolsai.jupyter
         ms-azuretools.vscode-docker
         jdinhlife.gruvbox
-        james-yu.latex-workshop
       ];
     };
 
@@ -180,11 +153,7 @@ in
           "git"
           "docker"
           "docker-compose"
-          "python"
-          "pyenv"
-          "pip"
           "tmux"
-          "rust"
         ];
         theme = "robbyrussell";
       };

@@ -17,22 +17,12 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      overlays = [
-        (_: prev: {
-          sf-pro-fonts = prev.callPackage ./pkgs/sf-pro-fonts.nix { };
-        })
-      ];
     in
     {
       nixosConfigurations.llathasa = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          {
-            nixpkgs = {
-              inherit overlays;
-              config.allowUnfree = true;
-            };
-          }
+          { nixpkgs.config.allowUnfree = true; }
           home-manager.nixosModules.home-manager
           ./configuration.nix
         ];

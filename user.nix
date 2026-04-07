@@ -11,7 +11,6 @@ in
     extraGroups = [
       "wheel"
       "docker"
-      "libvirtd"
       "transmission"
       "video"
     ];

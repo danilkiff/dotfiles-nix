@@ -15,10 +15,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = [
-      "ntfs"
-      "zfs"
-    ];
+    supportedFilesystems = [ "ntfs" ];
   };
 
   nix = {
@@ -110,13 +107,24 @@
 
   networking = {
     hostName = "llathasa";
-    hostId = "af714156"; # head -c 8 /etc/machine-id
     firewall.enable = true;
     networkmanager.enable = true;
     wireless.enable = false;
   };
 
-  hardware.graphics.enable = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    graphics.enable = true;
+  };
+
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+  };
 
   services.journald.extraConfig = ''
     SystemMaxUse=1G
