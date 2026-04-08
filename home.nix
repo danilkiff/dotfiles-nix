@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home = {
     username = "pikachu";
@@ -8,6 +8,12 @@
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim"; # for TUI/GUI
+      # Let starship render the venv segment instead of the activate
+      # script prepending "(venv)" — otherwise we get it twice.
+      VIRTUAL_ENV_DISABLE_PROMPT = "1";
+      # Default flake path for `nh os switch` / `nh os boot`. Derived
+      # from homeDirectory above so the absolute path is declared once.
+      NH_FLAKE = "${config.home.homeDirectory}/dev/dotfiles-nix";
     };
   };
 
@@ -42,6 +48,24 @@
     yq
     yt-dlp
     zip
+
+    # Modern engineering CLI. Mapping table lives in docs/CHEATSHEET.md.
+    ripgrep # grep
+    fd # find
+    delta # git diff pager (wired via programs.git.delta)
+    lazygit # git TUI
+    gitui # alternative git TUI
+    jless # less for JSON
+    hyperfine # statistical benchmarking
+    tokei # source line counter
+    just # task runner / make alternative
+    entr # rerun command on file change (line-based)
+    watchexec # rerun command on file change (event-based)
+    dua # disk usage scanner (fast, non-interactive)
+    ncdu # disk usage browser (interactive TUI)
+    duf # df with colors
+    btop # top/htop replacement
+    mtr # traceroute + ping combined
   ];
 
   programs = {
@@ -64,6 +88,15 @@
           abbrevCommit = true;
         };
         core.compression = 0;
+      };
+      delta = {
+        enable = true;
+        options = {
+          navigate = true;
+          line-numbers = true;
+          side-by-side = false;
+          syntax-theme = "gruvbox-dark";
+        };
       };
     };
     gpg.enable = true;
@@ -149,8 +182,59 @@
           "docker-compose"
           "tmux"
         ];
-        theme = "robbyrussell";
+        # Empty theme: starship takes over the prompt below.
+        theme = "";
       };
+    };
+
+    # Prompt: starship. Default modules already render git status,
+    # nix shell, and the active Python venv ($VIRTUAL_ENV) — the venv
+    # segment is the headline requirement for this machine.
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        add_newline = true;
+        python = {
+          # Show interpreter version + venv name on every prompt; do
+          # not require a python project to render the venv segment.
+          symbol = "py ";
+          format = "via [\${symbol}\${pyenv_prefix}(\${version} )(\\($virtualenv\\) )]($style)";
+          detect_extensions = [
+            "py"
+            "ipynb"
+          ];
+          detect_files = [
+            "pyproject.toml"
+            "requirements.txt"
+            "setup.py"
+            "Pipfile"
+            ".python-version"
+          ];
+        };
+        nix_shell = {
+          symbol = "nix ";
+          format = "via [$symbol$state( \\($name\\))]($style) ";
+        };
+      };
+    };
+
+    # File search / navigation upgrades. Each module wires its own
+    # zsh integration (aliases, key bindings, completions).
+    bat.enable = true;
+    eza = {
+      enable = true;
+      enableZshIntegration = true; # aliases ls/ll/la/lt -> eza
+      git = true;
+      icons = "auto";
+    };
+    fzf = {
+      enable = true;
+      enableZshIntegration = true; # Ctrl-R, Ctrl-T, Alt-C
+    };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true; # adds `z` jump command
     };
 
     tmux = {

@@ -11,7 +11,11 @@
 
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        # Cap stored generations so the EFI partition can't fill up.
+        configurationLimit = 10;
+      };
       efi.canTouchEfiVariables = true;
     };
     supportedFilesystems = [ "ntfs" ];
@@ -25,11 +29,8 @@
   };
 
   nix = {
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 14d";
-    };
+    # GC is delegated to programs.nh.clean below — they are mutually
+    # exclusive, and nh gives nicer output and `--keep N` semantics.
     optimise = {
       automatic = true;
       dates = [ "weekly" ];
@@ -102,6 +103,26 @@
       enable = true;
       enableSSHSupport = true;
       pinentryPackage = pkgs.pinentry-gnome3;
+    };
+
+    # nh: friendlier wrapper over nixos-rebuild + store GC.
+    # `nh os switch` for rebuilds, `nh clean all` for GC.
+    # Default flake path is exported as $NH_FLAKE from home.nix so that
+    # the absolute path lives next to home.homeDirectory, not here.
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        dates = "weekly";
+        extraArgs = "--keep-since 14d --keep 5";
+      };
+    };
+
+    # Wireshark with the dumpcap helper so non-root capture works for
+    # users in the `wireshark` group (see user.nix).
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
     };
   };
 
@@ -184,6 +205,24 @@
   services.journald.extraConfig = ''
     SystemMaxUse=1G
   '';
+
+  # Userspace OOM killer: reacts in seconds, kills the heaviest process
+  # before the kernel falls into a multi-minute swap thrash.
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 10;
+  };
+
+  # SMART monitoring for the NVMe — surfaces failing disks early.
+  services.smartd = {
+    enable = true;
+    autodetect = true;
+    notifications = {
+      x11.enable = true;
+      wall.enable = true;
+    };
+  };
 
   system.stateVersion = "25.11";
 }

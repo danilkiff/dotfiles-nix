@@ -12,6 +12,7 @@ in
       "wheel"
       "docker"
       "video"
+      "wireshark"
     ];
     openssh.authorizedKeys.keys = [ sshPubKey ];
   };

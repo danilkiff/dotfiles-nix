@@ -44,10 +44,27 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = [ pkgs.cascadia-code ];
+    packages = with pkgs; [
+      cascadia-code
+      # Nerd Font for terminal: powerline glyphs, devicons, starship symbols.
+      nerd-fonts.jetbrains-mono
+      # Broad unicode coverage so TUIs (k9s, lazygit, btop) don't render
+      # half their UI as tofu.
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+    ];
     fontconfig = {
       enable = true;
-      defaultFonts.monospace = [ "Cascadia Code" ];
+      defaultFonts = {
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Cascadia Code"
+        ];
+        sansSerif = [ "Noto Sans" ];
+        serif = [ "Noto Serif" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
     };
   };
 }
