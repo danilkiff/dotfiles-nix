@@ -237,6 +237,39 @@
       enableZshIntegration = true; # adds `z` jump command
     };
 
+    # WezTerm: GPU terminal, configured via Lua. home-manager auto-prepends
+    # `local wezterm = require 'wezterm'` to the generated wezterm.lua, so
+    # extraConfig below intentionally omits that line.
+    # `macos_window_background_blur` is a no-op on Linux but is left in
+    # for parity with the macOS workstation config.
+    wezterm = {
+      enable = true;
+      enableZshIntegration = true;
+      extraConfig = ''
+        local act = wezterm.action
+
+        local config = wezterm.config_builder()
+
+        config.initial_cols = 140
+        config.initial_rows = 40
+        config.font_size = 18
+        config.color_scheme = 'Everforest Dark (Gogh)'
+        config.font = wezterm.font 'Cascadia Code'
+
+        config.window_background_opacity = 0.8
+        config.text_background_opacity   = 0.8 -- for nvim/tui
+        config.macos_window_background_blur = 20
+
+        -- Alt+Arrows: jump by word (send Esc+b / Esc+f)
+        config.keys = {
+          { key = 'LeftArrow',  mods = 'ALT', action = act.SendString '\x1bb' },
+          { key = 'RightArrow', mods = 'ALT', action = act.SendString '\x1bf' },
+        }
+
+        return config
+      '';
+    };
+
     tmux = {
       enable = true;
       extraConfig = ''
