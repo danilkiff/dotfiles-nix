@@ -142,7 +142,13 @@
     hostName = "llathasa";
     nftables.enable = true;
     firewall.enable = true;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      plugins = with pkgs; [
+        networkmanager-openconnect
+        networkmanager-openvpn
+      ];
+    };
     wireless.enable = false;
   };
 
@@ -179,5 +185,5 @@
     SystemMaxUse=1G
   '';
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

@@ -1,14 +1,9 @@
 { pkgs, ... }:
-let
-  userName = "Oleg Y. Danilkiff";
-  userEmail = "13948753+danilkiff@users.noreply.github.com";
-  signKey = "386E2F77CD7D10E0";
-in
 {
   home = {
     username = "pikachu";
     homeDirectory = "/home/pikachu";
-    stateVersion = "25.05";
+    stateVersion = "25.11";
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -52,12 +47,15 @@ in
   programs = {
     git = {
       enable = true;
-      inherit userName userEmail;
       signing = {
-        key = signKey;
+        key = "386E2F77CD7D10E0";
         signByDefault = true;
       };
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Oleg Y. Danilkiff";
+          email = "13948753+danilkiff@users.noreply.github.com";
+        };
         push.autoSetupRemote = true;
         pull.ff = "only";
         init.defaultBranch = "main";
@@ -69,8 +67,6 @@ in
       };
     };
     gpg.enable = true;
-
-    ssh.enable = true;
     ssh.matchBlocks = {
       "github.com" = {
         host = "github.com";
