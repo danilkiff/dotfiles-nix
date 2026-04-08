@@ -89,14 +89,17 @@
         };
         core.compression = 0;
       };
-      delta = {
-        enable = true;
-        options = {
-          navigate = true;
-          line-numbers = true;
-          side-by-side = false;
-          syntax-theme = "gruvbox-dark";
-        };
+    };
+    # delta is its own home-manager module since 25.11; enableGitIntegration
+    # must now be set explicitly (the auto-wire was deprecated).
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = false;
+        syntax-theme = "gruvbox-dark";
       };
     };
     gpg.enable = true;
